@@ -1,0 +1,9 @@
+Assignment 1
+    use python language and connect to mysql server
+        -> create a DB IoT data
+    create table temperature-diot
+
+
+    table/schema
+    timestable iso format(   )
+    -> sensor name,place value (-10 to 50)

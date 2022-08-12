@@ -1,0 +1,20 @@
+#How to dockerize a Python Application
+-------------------------------------
+1. Create a Dockerfile and use base image python:3-alpine
+2. We have to print some message in python file say print "My first Python Docker Application" with a delay of 5 second
+3. We have to spin this python app as a container
+Steps:
+1. Create A python Application file
+2. Create a Dockerfile
+------------------------
+Steps:
+1. Set base image (python:3.8.6-alpine3.12)
+2. LABEL MAINTAINER
+3. SET WORKING directory for container
+4. copy the python file from host machine to container
+4. RUN the python file
+-------------------------------------------------
+#Build the image
+sudo docker build -t diot:pythonapp .
+#Run the container in interactive mode
+sudo docker run -it --name pythonfirstapp diot:pythonapp

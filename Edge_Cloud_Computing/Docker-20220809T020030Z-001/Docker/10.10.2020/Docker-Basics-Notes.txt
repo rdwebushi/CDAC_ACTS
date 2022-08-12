@@ -1,0 +1,160 @@
+mkdir Docker-Practicals
+cd Docker-Practicals
+mkdir Application1
+cd Application1
+------------------------------------
+Task:
+----------
+1. Everyone has to print their using ubuntu as a base image
+-------------------------------------------------------------
+recall - docker run hello-world
+
+Similar to that we are going to create a container
+--------------------------------------------------------------
+Rule 1:
+
+Create a Dockerfile & always remember that the name will be "Dockerfile" without any extension.
+
+Always keep it in a specific folder; if you are writing multiple Dockerfiles
+
+How to write Docker file Instructions:
+https://docs.docker.com/engine/reference/builder/
+
+FROM Instruction:
+----------------------------
+
+The FROM instruction initializes a new build stage and sets the Base Image for subsequent instructions. 
+
+As such, a valid Dockerfile must start with a FROM instruction. 
+
+The image can be any valid image – it is especially easy to start by pulling an image from the Public Repositories.
+
+FROM <image> [AS <name>]
+
+FROM [--platform=<platform>] <image>[:<tag>] [AS <name>]
+
+FROM [--platform=<platform>] <image>[@<digest>] [AS <name>]
+
+Mandeory field
+
+FROM <image-name>
+
+or
+
+FROM <image-name>:tag
+
+
+MAINTAINER (deprecated)
+
+MAINTAINER <name>
+
+The MAINTAINER instruction sets the Author field of the generated images. The LABEL instruction is a much more flexible version of this and you should use it instead, as it enables setting any metadata you require, and can be viewed easily, for example with docker inspect. To set a label corresponding to the MAINTAINER field you could use:
+
+LABEL maintainer="SvenDowideit@home.org.au"
+
+CMD
+-------------
+
+CMD instructions define what command gets executed when running a container. 
+
+------------------------------------------------------------------------------------
+What we have done:
+
+1. We have crated a Dockerfile
+2. We write some instruction inside the Dockerfile
+
+Recall Steps for spinning a container
+
+Dockerfile --> build --> Docker-Image --> run - Container
+
+#How to build an image
+
+sudo docker build -t <name of the image>:tag <path of dockerfile>
+
+sudo docker build -t docker-hello-world:diot .
+
+-t >> image name:tag
+
+#check the new image created using 
+
+sudo docker image ls 
+
+#How to create/run a container from the build image
+
+sudo docker run <imagename> --name<container-name>
+
+sudo docker docker-hello-world:diot
+sudo docker run --name bhupendra docker-hello-world:diot
+
+Remember : 
+1. Container name is optional and must be unique
+2. if once conatiner will be availble on the host-machine then new names must be given else will throw error
+3. If names is not given explicitely then conatiner can be identified with the container id
+-----------------------------------------------------------------------------------------------------------------
+
+List all the containers using
+
+sudo docker container ls -a
+sudo docker ps -a
+
+List All Running container
+
+sudo docker container ls
+sudo docker ps
+
+
+#Delete image
+
+sudo docker rmi <imagename/id>
+
+Forcibilty delete an image
+
+sudo docker rmi --force <imagename/id>
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------

@@ -1,0 +1,43 @@
+Create mosquitto_publish container in python environment as container1
+cereate mosquitto_subscribe container in python environment as container 2
+create mosquitto container as container3
+---------------------------------------------------------------------------------------------
+container 1 and 2 should connect to container 3 and should able to do the communication
+---------------------------------------------------------------------------------------------
+Hints:
+docker pull alpine
+Lets play with three containers
+sudo docker run --name container1 -it ubuntu:20.04 bash  - mosquitto_publish
+sudo docker run --name container2 -it ubuntu:20.04 bash  - broker
+sudo docker run --name container3 -it ubuntu:20.04 bash  - subscriber
+172.17.0.1 - docker interface ip
+172.17.0.2 - container1
+172.17.0.3 - container2
+172.17.0.4 - container3
+-----------------------------------
+container1:
+apt update
+apt install mosquitto-clients
+apt install net-tools  #for ifconfig
+apt install iputils-ping -y 
+
+container2:
+apt update
+apt install mosquitto
+apt install net-tools #for ifconfig
+service mosquitto start
+apt install iputils-ping -y 
+
+container3:
+apt update
+apt install mosquitto-clients
+apt install net-tools  #for ifconfig
+apt install iputils-ping -y #ping
+apt install openssh-client openssh-server
+
+#Build your ubuntu image with ssh preinstalled
+
+FROM ubuntu:20.04
+RUN apt-get update
+RUN apt-get install -y net-tools openssh-server openssh-clients iputils-ping
+EXPOSE 22

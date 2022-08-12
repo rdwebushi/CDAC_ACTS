@@ -1,0 +1,8 @@
+requirements.txt is a file where we keep the list of the dependencies
+required for the application
+
+sudo docker build -t flask-app:diot20 .
+
+sudo docker run --name flaskApp -p 6000:4500 flask-app:diot20
+or
+sudo docker run -p 6000:4500 flask-app:diot20

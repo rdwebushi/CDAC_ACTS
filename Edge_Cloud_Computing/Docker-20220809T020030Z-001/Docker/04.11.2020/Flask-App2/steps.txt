@@ -1,0 +1,5 @@
+sudo docker build -t flaskapp:v0 .
+
+sudo docker run -p 7000:4500 flaskapp:v0
+
+

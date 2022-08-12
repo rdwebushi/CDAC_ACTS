@@ -1,0 +1,5 @@
+Question1:
+1. Use ubuntu 18:04 as a base image to  print that "Docker is awesome" in a container
+2. The image Name should be docker-quotes:v0
+3. container name should be hellodocker
+---------------------------------------------------

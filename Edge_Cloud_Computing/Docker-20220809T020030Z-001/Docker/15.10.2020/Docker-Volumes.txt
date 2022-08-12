@@ -1,0 +1,195 @@
+Setup Node-Red on Docker:
+----------------------------------------------------------------------
+
+https://nodered.org/docs/getting-started/docker
+
+docker run -it -p 7600:1880 --name mynodered nodered/node-red
+
+7600 is host port where we can launch our node-red in web browser
+
+localhost:7600
+
+
+Sample output of :
+
+docker ps
+
+(observe the PORT mapping section)
+
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                    PORTS                    NAMES
+30dc7584358c        nodered/node-red    "npm start --cache /…"   41 seconds ago      Up 39 seconds (healthy)   0.0.0.0:7600->1880/tcp   mynodered
+-----------------------------------------------------------------------------------------------------------------------------------
+
+sudo docker container stop mynodered
+
+sudo docker container start mynodered
+
+Note: Observe that data is persisted in Node-Red Flow.
+----------------------------------------------------------------
+docker attach mynodered  --> Stdout of Node-red container will be available
+
+
+Docker maintains the data of containers in volumes
+
+path:
+
+login as root user:
+
+sudo su
+
+cd /var/lib/docker/volumes
+
+docker inspect mynodered (check your volumes)
+
+"Mounts": [
+            {
+                "Type": "volume",
+                "Name": "d5c86282718df6d6573e0c1722e7ecf215c2c96e51495bfb5b58a1ba3a1fe2dd",
+                "Source": "/var/lib/docker/volumes/d5c86282718df6d6573e0c1722e7ecf215c2c96e51495bfb5b58a1ba3a1fe2dd/_data",
+                "Destination": "/data",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+
+Volume that is attached with mynodered container
+
+ "Name": "d5c86282718df6d6573e0c1722e7ecf215c2c96e51495bfb5b58a1ba3a1fe2dd",
+ 
+#List all the volumes:
+
+docker volume ls
+
+you can go inside the volume:
+_data (maintains the data)
+
+/var/lib/docker/volumes/d5c86282718df6d6573e0c1722e7ecf215c2c96e51495bfb5b58a1ba3a1fe2dd/_data
+
+------------------------------------------------------------------------------------------------------
+sudo docker rm mynodered
+
+docker run -it -p 7600:1880 --name mynodered nodered/node-red
+
+All the previuos data of the container will be lost
+------------------------------------------------------------------------
+So we need persistant volume for this
+
+Lets get started with named-volume
+
+First Create a volume
+
+docker volume create --name node-red-data
+
+#node-red-data volume is available on host machine at location:
+
+/var/lib/docker/volumes
+
+#can be verified by:
+
+ls /var/lib/docker/volumes  #with root user
+
+docker volume ls  #Listing of existing volumes
+
+#To delete a volume 
+docker volume rm <volumename/id>
+
+Launch a cotainer with the volume
+(-v --> volume Mapping - hostvolume:containervolume)
+
+#before running this command ensure mynodered container is deleted if not use below command and use -v flag to launch with volume
+docker rm --force mynodered
+
+docker run -it -p 1880:1880 -v node-red-data:/data --name mynodered nodered/node-red
+{
+    Crate some flows in Node-Red
+}
+
+sudo docker rm --force mynodered   #Delete the container forcefully
+
+or
+
+sudo docker stop mynodered  #stop first and then delete using below command
+
+sudo docker rm mynodered
+
+Then lanuch the container again and check old flow is available
+
+docker run -it -p 1880:1880 -v node-red-data:/data --name mynodered nodered/node-red
+
+-------------------------------------------------------------------------------------------
+
+Volume use case : 2
+---------------------------
+sudo docker volume create writankar
+
+sudo docker run -it --name container1 -v writankar:/test ubuntu /bin/bash
+
+#you will get bash shell of ubuntu
+
+cd /test
+
+write some data inside file
+
+echo "Docker Persistant volume" > learning.txt
+
+ls
+
+#Destroy the container
+
+sudo docker rm --force container1
+
+#launch a new container
+sudo docker run -it --name container-new -v writankar:/test ubuntu /bin/bash/
+
+and test that the data is available in test directory or not which we crated in container1
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

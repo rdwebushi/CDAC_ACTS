@@ -1,0 +1,10 @@
+#compose file version
+version: '3'
+#Services
+services:
+    #servicename 
+    helloapp:
+        build: . #path for dockerfile (build)
+        container_name: pythoncompose
+        command: python3 pythonapp.py #command to run application
+

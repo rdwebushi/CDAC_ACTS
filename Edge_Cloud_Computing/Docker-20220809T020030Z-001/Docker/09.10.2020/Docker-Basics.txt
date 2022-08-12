@@ -1,0 +1,201 @@
+Docker?
+
+Docker uses host OS kernel, there is no custom or additional kernel inside container. 
+All containers which run on a machine are sharing this "host" kernel.
+
+All container doesn't require OS exclusively.
+
+---------------------------------------------------------------------------------------------
+Docker docs:
+https://docs.docker.com/
+
+Docker installation
+
+https://docs.docker.com/engine/install/
+
+Setup Docker on Ubuntu based environment:
+----------------------------------------------
+https://docs.docker.com/engine/install/ubuntu/
+
+#Installation through curl
+
+sudo apt install curl
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+
+sudo sh get-docker.sh
+
+-------------------------------------------------------
+
+Run Docker as a non root user
+--------------------------------
+If you would like to use Docker as a non-root user, you should now consider adding your user to the “docker” group with something like:
+
+sudo usermod -aG docker $USER
+
+After adding user either log out and back in for this to take effect! or source ~/.bashrc
+
+----------------------------------------------------------------------------------------------
+check running status of docker
+
+sudo systemctl status docker
+ 
+ or
+
+sudo service docker status
+
+stop/restart/start with service and systemctl
+
+sudo systemctl stop/start/restart docker
+
+ or
+
+sudo service docker stop/start/restart
+
+Enable/Disable docker service
+systemctl disable docker.service
+systemctl enable docker.service
+--------------------------------------------------------------------------------------------------------------
+
+Check Docker version:
+
+docker --version
+
+-------------------
+
+Verify that Docker Engine is installed correctly by running the hello-world image.
+
+sudo docker run hello-world
+
+Steps to make a container :
+
+Dockerfile --> DockerImage --> Container
+
+There are Docker images available over Docker Hub that can be used directly to spin a container
+
+e.g hello-world
+
+------------------------------------------------------------------------------------------------
+Lets spin an ubuntu container
+
+sudo docker run -it ubuntu bash   
+
+--> run - make docker file as container
+--> it  - interactive mode
+--> ubuntu -  docker image name
+--> bash - login with bash in interactive  mode (as -it is mentioned)
+--------------------------------------------------------------------------------------------------
+
+Create an account on Docker Hub and log in
+-------------------------------------------------------------------
+you can pull any image from docker hub with specific tag:
+e.g ubuntu:18.04 --> after column the field mentioned is known as tag
+
+You can check tags by visiting docker hub repository:
+
+e.g for ubuntu
+
+https://hub.docker.com/_/ubuntu
+
+-------------------------------------------------------------------------------------------------------
+
+Some important commands related to Docker:
+
+#List all available Docker images on the host machine
+
+sudo docker image ls
+
+sudo docker images
+
+sudo docker images | head -4  (list top 3 images)
+
+sudo docker image ls | head -4 (list top 3 images)
+
+sudo docker image ls | less -4 (last 4 images)
+--------------------------------------------------------------------------------------------------
+Philosophy of Docker images:
+
+Any container that we want to spin on the host machine ---?
+
+What is does?
+
+1. First it will search the docker image on my local machine to be used to spin a container
+
+2. If it will not find it on my local machine ... then it will connect to docker hub and will pull the image on my local host machine (in this case internet is required beacuse that image is available over docker hub (Public docker repository to maintain docker images)
+
+---------------------------------------------------------------------------------------------------------------------
+
+How to luanch an linux environment with a size of 5 MB
+----------------------------------------------------------
+alpine image:
+A minimal Docker image based on Alpine Linux with a complete package index and only 5 MB in size!
+comes with sh shell
+
+launch in intercative with the access to sh shell
+
+sudo docker run -it alpine /bin/sh
+
+sudo docker run -it  alpine
+---------------------------------------------------------
+alpine default package manager is  : apk
+
+#update
+--> apk update
+#install nano
+--> apk add nano
+#install python3
+--> apk add python3
+#launch python3
+--> python3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+

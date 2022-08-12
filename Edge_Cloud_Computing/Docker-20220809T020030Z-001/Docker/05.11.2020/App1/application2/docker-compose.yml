@@ -1,0 +1,16 @@
+version : '3.8'
+services:
+    mqttbroker: #service must be in small letters
+        image: eclipse-mosquitto #official image of mqtt broker
+        hostname: mosquitto   #hostname of the container
+        container_name: testmqttbroker #container-name
+        networks:     #network-name
+            - default
+        expose: #expose the containers ports
+            - "1883" 
+            - "9001" 
+        volumes:  #volume mapping
+            - ./mosquitto/mosquitto.conf:/etc/mosquitto/config/mosquitto.conf
+        ports: #port mapping
+            - "5010:1883"
+            - "5012:9001"
