@@ -1,0 +1,110 @@
+docker run -it -p 1880:1880 --name mynodered nodered/node-red
+
+Host Port Number : Container Port Number (EXPOSE 1880)
+
+By default Node-Red Runs at port 1880 (inside container port Number 1880 is fixed in Node-red official Image)
+
+We can change the Host port Number
+
+docker run -it -p 7000:1880 --name mynodered nodered/node-red
+
+From the above statement we can infer two important things about PORT mapping:
+
+1. node-red will be exposed on host Machine (network) at port 7000
+ (Again user have flexibilty to modify this port as per the availability of the port on host machine network
+    e.g 7001, 7002
+    Node-red can be launched in web broswer at localhost:7000
+ )
+2. Node-Red is running at port number 1880 inside container which can't be changed
+   as this is fixed in the images by the Node-red Team
+
+-----------------------------------------------------------------------------------------------------------------
+
+Why we need port mapping?
+
+Docker has it own network management?
+
+can be seen as below:
+
+docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:25ff:fea3:b5f9  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:25:a3:b5:f9  txqueuelen 0  (Ethernet)
+        RX packets 97  bytes 76794 (76.7 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 131  bytes 339799 (339.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+Docker can allocate IP addresses to the container between 172.17.0.2 to 172.17.255.254
+--------------------------------------------------------------------------------------------
+Some important commands:
+
+Related to system:
+
+docker version
+
+(Information Related to docker daemon and API version)
+--------------------------------------------------------------------
+docker system df --> size used by containers/Images/Localvolumes/Cache
+
+more detailed:
+
+docker system df -v
+
+Docker cheatsheet
+
+https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+
+Purging All Unused or Dangling Images, Containers, Volumes, and Networks
+
+Dangling Images : Unused with no tag
+
+sudo docker system prune 
+
+Note: All the stopped container/unused volumes/caches can be removed in a single command using "sudo docker system prune"
+
+Restart policies (--restart)
+-------------------------------------------
+
+Use Docker’s --restart to specify a container’s restart policy. 
+A restart policy controls whether the Docker daemon restarts a container after exit.
+Docker supports the following restart policies:
+Policy 	Result
+no 	Do not automatically restart the container when it exits. This is the default.
+on-failure[:max-retries] 	Restart only if the container exits with a non-zero exit status. 
+
+Optionally, limit the number of restart retries the Docker daemon attempts.
+unless-stopped 	Restart the container unless it is explicitly stopped or Docker itself is stopped or restarted.
+{ Bug To be reported
+always : 	Always restart the container regardless of the exit status. 
+When you specify always, the Docker daemon will try to restart the container indefinitely. 
+The container will also always start on daemon startup, regardless of the current state of the container.
+}
+Always restart the container if it stops. 
+If it is manually stopped, it is restarted only when Docker daemon restarts or the container itself is manually
+restarted. 
+(See the second bullet listed in restart policy details)
+
+docker run --restart=always redis
+
+It will restart the container assocated with redis image when docker daemon restarts
+
+sudo docker build -t apache:ashish .
+
+sudo docker run --restart=always -p 6015:80 --name ashish apache:ashish
+
+#Check logs of a specific container
+docker logs --tail 50 --follow --timestamps ashishgcc
+
+docker attach : 
+
+docker attach
+Description
+
+Attach local standard input, output, and error streams to a running container
+
+sudo docker attach <container-id>
+--------------------------------------------
+
+
+

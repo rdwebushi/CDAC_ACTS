@@ -1,0 +1,25 @@
+Assignment on Docker Container (10.10.2020)
+---------------------------------
+Dockerize a python based calculator that should run as a container and perform 
+below options.
+1. Addition
+2. Subtraction
+3. Multiplication
+4. Division
+
+If user enteres value 1 It should perform Addition of two numbers entered from the keyboard
+If user enteres value 2 It should perform Subtraction of two numbers entered from the keyboard
+If user enteres value 3 It should perform Multiplication of two numbers entered from the keyboard
+If user enteres value 14 It should perform Division of two numbers entered from the keyboard
+
+Follow the below rules while writing the Docker File
+
+1. Use python alpine as a base image
+2. use your email id/name as a maintainer of the project
+3. Working directory should be set as /usr/src/dockerassignment
+4. Copy the Python file in the working directory of the container
+5. Run Application in Python3 Environment
+
+Note: Spin the the container in interactive mode having docker image name as pythoncalculator and container name as pycal:v0
+
+

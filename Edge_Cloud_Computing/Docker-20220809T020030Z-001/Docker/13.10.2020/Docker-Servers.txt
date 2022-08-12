@@ -1,0 +1,52 @@
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:55ff:fe40:7286  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:55:40:72:86  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 26  bytes 4215 (4.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+--------------------
+docker0 - docker interface for communication
+
+Note: Container have its own network and the service running inside container can't be accessed
+directly on the host machine we need to do proper host to container mapping
+------------------------------------------------------------------------------------------------
+Each container gets a different IP from docker engine
+
+Container 1 will get the ip as : 172.17.0.2
+Container 2 will get the IP as : 172.17.0.3
+-----------------------------------------------------------------------
+How to host http-server in container
+
+Offical Image repository
+
+https://hub.docker.com/_/httpd
+
+
+sudo docker build -t apachecos:diot .
+
+docker run -dit --name apache1 -p 6010:80 apachecos:diot
+
+-d --> detached (running container in backgroud)
+
+-p <host port number>:<containerport number> 
+
+Container port number is the expose port number in Docker file
+
+-p (is used for mapping host machine port number to the container port number)
+
+So that services runnin gon container port can be exposed on the host machine
+
+What does DFOREGROUND do in CentOS:?
+The -DFOREGROUND option does indeed mean that Apache won't fork, 
+but that doesn't mean that it's attached to your shell!
+The service is started by systemd when you run systemctl start httpd 
+(or the old style way, service httpd start). 
+It is systemd to which Apache is attached, 
+and systemd is managing the process as one of its children. 
+This is done so that systemd can easily tell whether Apache has crashed, 
+without having to poll a pid file.
+This also means that systemd is capable of automatically restarting Apache
+if it does crash.

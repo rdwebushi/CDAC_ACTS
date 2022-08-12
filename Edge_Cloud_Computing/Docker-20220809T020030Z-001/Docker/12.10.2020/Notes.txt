@@ -1,0 +1,19 @@
+Task:
+--------------------
+Create your Account on Docker Hub
+--------------------------------------
+
+sudo docker build -t userregis:cdac .
+sudo docker image ls | head -2
+sudo docker run --name userregistration -it userregis
+
+Note: Container name is optional
+
+sudo docker run -it userregis:cdac
+
+sudo docker exec -it <container id> bash # to login into bash shell
+
+Note:
+Always remember that python official image of docker runs over ubuntu OS which is around 880 MB.
+In order to save memory it is best practive to use alpine as a base image
+----------------------------------------------------------------------------------------------------

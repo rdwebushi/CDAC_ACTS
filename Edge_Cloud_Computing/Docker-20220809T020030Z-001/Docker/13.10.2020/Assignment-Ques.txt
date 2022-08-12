@@ -1,0 +1,22 @@
+Time allocated : 15 Mins
+Questions:
+Problem statement 1:
+Write a code snippet in python environment that should perform the sum of n numbers
+entered by the user from the standard input (stdin). It should also ask the count of the number
+that he/she want to add.
+Problem statement 2:
+a. Write a Docker file that should use python3 alpine as base image.
+b. Maintainer should be organization name
+3. working directory should be set as /usr/src/app/coding
+4. Running environemtn should be python3
+Problem statement 3:
+Create a Docker Image using Docker file and python code snippet.
+Spin the container in Local environment(Host Machine)
+Problem statement 4:
+upload your docker image with new tag to the Docker hub repositiry
+Spin the container from the docker image hosted on Docker hub
+---------------------------------------------------------------------------------------------------
+
+
+
+

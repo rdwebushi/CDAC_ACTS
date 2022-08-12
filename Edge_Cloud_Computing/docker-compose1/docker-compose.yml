@@ -1,0 +1,28 @@
+version: '3'
+services:
+  mqttbroker: # dervice must be any valid name with lowercase
+    image: eclipse-mosquitto #official image of mqtt broker
+    hostname: mosquitto
+    container_name: testmqttbroker1
+    networks:
+        - default
+    expose:
+        - "1883"
+    volumes:
+        - /home/rushikesh/CDAC/Edge_Cloud_Computing/docker-compose1/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports:
+        - "5010:1883"
+        - "5012:9001"
+  publisher:
+    build: ./pub_client
+    container_name: publisher
+    hostname: mosquitto
+    depends_on:
+        - mqttbroker
+        - subscriber
+  subscriber:
+    build: ./subscriber
+    container_name: subscriber
+    hostname: subscriber
+    depends_on:
+         - mqttbroker

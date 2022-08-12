@@ -1,0 +1,13 @@
+#create a docker-compose configuration file
+extension for this file is - .yml/.yaml
+This file handles the container/service management
+Basic Steps:
+Step 1 : Write docker compose file version
+Step 2 : write services
+Step3 : Service name
+Step4 : build
+Steo5 : command
+----------------------------------------------------------
+docker-compose up  #it will start the service
+docker image ls | head -3
+docker container ls -a | head -4
